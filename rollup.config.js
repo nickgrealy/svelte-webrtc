@@ -6,6 +6,7 @@ import { terser } from "rollup-plugin-terser";
 import sveltePreprocess from "svelte-preprocess";
 import typescript from "@rollup/plugin-typescript";
 import css from "rollup-plugin-css-only";
+import nodePolyfills from "rollup-plugin-polyfill-node";
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -61,8 +62,10 @@ export default {
     // https://github.com/rollup/plugins/tree/master/packages/commonjs
     resolve({
       browser: true,
+      preferBuiltins: true,
       dedupe: ["svelte"],
     }),
+    nodePolyfills(),
     commonjs(),
     typescript({
       sourceMap: !production,
