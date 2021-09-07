@@ -1,30 +1,45 @@
 <script lang="ts">
-	export let name: string;
+
+	import Peer from 'peerjs/dist/peerjs'
+
+	let status = 'disconnected'
+	let messages = []
+
+	const peer = new Peer({
+		host: "0.peerjs.com",
+		port: 443,
+		path: "/",
+		pingInterval: 5000,
+	} as any);
+	// const conn = peer.connect("other-peer-id");
+	// conn.on("open", () => {
+	// 	status = 'connected'
+	// 	conn.send("Hello World!");
+	// });
+	// conn.on("data", (data) => {
+	// 	console.log("Received data", data);
+	// 	messages.push(data)
+	// });
 </script>
 
-<main>
-	<h1>Hello {name}!</h1>
-	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
+<main class="flex flex-col">
+	<div class="flex">
+		<label>Status: {status}</label>
+	</div>
+	<form class="flex">
+		<input type="text" />
+		<button type="submit" on:click={() => {}}>Send</button>
+	</form>
+	<pre>
+		{JSON.stringify(messages, null, 2)}
+	</pre>
 </main>
 
 <style>
 	main {
-		text-align: center;
-		padding: 1em;
-		max-width: 240px;
-		margin: 0 auto;
+		border: 1px solid red;
 	}
-
-	h1 {
-		color: #ff3e00;
-		text-transform: uppercase;
-		font-size: 4em;
-		font-weight: 100;
-	}
-
-	@media (min-width: 640px) {
-		main {
-			max-width: none;
-		}
-	}
+	.flex { display: flex; }
+	.flex > * { flex: 1 0 auto; }
+	.flex-col { flex-direction: column ;}
 </style>

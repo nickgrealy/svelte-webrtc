@@ -7,6 +7,8 @@ import sveltePreprocess from "svelte-preprocess";
 import typescript from "@rollup/plugin-typescript";
 import css from "rollup-plugin-css-only";
 import nodePolyfills from "rollup-plugin-polyfill-node";
+import Peer from 'peerjs'
+import browserifyPlugin from "rollup-plugin-browserify-transform";
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -65,6 +67,7 @@ export default {
       preferBuiltins: true,
       dedupe: ["svelte"],
     }),
+    browserifyPlugin(Peer),
     nodePolyfills(),
     commonjs(),
     typescript({
